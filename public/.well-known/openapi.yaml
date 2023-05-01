@@ -1,0 +1,101 @@
+openapi: 3.0.1
+info:
+  title: Fetch
+  description: A plugin to fetch web content and execute custom JavaScript functions for data extraction.
+  version: 'v1'
+servers:
+  - url: https://fetch.qfd.repl.co
+paths:
+  /fetchContent:
+    get:
+      operationId: fetchContent
+      summary: Fetch the content of a website
+      parameters:
+        - in: query
+          name: url
+          schema:
+            type: string
+          required: true
+          description: The target URL to fetch content from
+        - in: query
+          name: section
+          schema:
+            type: string
+            default: 'body'
+          required: false
+          description: The section of the website to fetch ('head' or 'body')
+        - in: query
+          name: page
+          schema:
+            type: integer
+            default: 1
+          required: false
+          description: The page number of the response
+      responses:
+        '200':
+          description: The content of the website
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  content:
+                    type: string
+                  page:
+                    type: integer
+                  totalPages:
+                    type: integer
+                  pageUrls:
+                    type: array
+                    items:
+                      type: string
+        '500':
+          description: Error fetching website content
+  /executeFunction:
+    get:
+      operationId: executeFunction
+      summary: Execute a custom JavaScript function on website content. Include return statement in functionBody.
+      parameters:
+        - in: query
+          name: url
+          schema:
+            type: string
+          required: true
+          description: The target URL to execute the custom function on
+        - in: query
+          name: functionBody
+          schema:
+            type: string
+          required: true
+          description: The body of the custom JavaScript function (include "return")
+        - in: query
+          name: page
+          schema:
+            type: integer
+            default: 1
+          required: false
+          description: The page number of the response
+      responses:
+        '200':
+          description: The result of executing the custom JavaScript function
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  content:
+                    type: string
+                  page:
+                    type: integer
+                  totalPages:
+                    type: integer
+                  pageUrls:
+                    type: array
+                    items:
+                      type: string
+        '400':
+          description: Missing function body or function took too long to execute
+        '429':
+          description: Too many requests. Please try again later
+        '500':
+          description: Error executing custom JavaScript function on website content
