@@ -1,0 +1,18 @@
+{
+  "schema_version": "v1",
+  "name_for_human": "Fetch",
+  "name_for_model": "Fetch",
+  "description_for_human": "Fetch web content and execute custom JavaScript functions for data extraction.",
+  "description_for_model": "This plugin allows you to fetch web content from a specified URL and execute custom JavaScript functions to extract data from the site's DOM. Use the 'fetchContent' method with a URL to retrieve content. The response includes the 'content' property, which contains the HTML content of the requested section ('head' or 'body'). The 'body' section is typically more relevant to users. When summarizing a page, extract meaningful information from the 'content' property and present it concisely. Use the 'executeFunction' method with a URL and a custom JavaScript function to extract specific data. You must include a 'return' statement in the function body. Responses are paginated, and you can specify the 'page' query parameter to request a specific page. The response includes the content, current page number, total number of pages, and an array of URLs ('pageUrls') for each page. To get all of the content for a website, you can make multiple fetch calls, one for each URL in pageUrls.",
+  "auth": {
+    "type": "none"
+  },
+  "api": {
+    "type": "openapi",
+    "url": "https://fetch.qfd.repl.co/.well-known/openapi.yaml",
+    "is_user_authenticated": false
+  },
+  "logo_url": "https://fetch.qfd.repl.co/.well-known/logo.png",
+  "contact_email": "support@example.com",
+  "legal_info_url": "http://www.example.com/legal"
+}
