@@ -1,31 +1,66 @@
-# fetch
+# Fetch
 
-## Plugin Overview
+## Overview
 
-The Fetch plugin is a web content extraction tool designed to integrate seamlessly with ChatGPT. It provides users with the ability to fetch content from any website and execute custom JavaScript functions to extract relevant information from the site's Document Object Model (DOM). The plugin is designed to empower the AI model to process web content and provide valuable insights to users.
+Fetch is a REST API and plugin designed to extract web content for integration with ChatGPT. It allows users to obtain content from any website and perform custom JavaScript functions to extract relevant information from the site's Document Object Model (DOM). The primary goal of Fetch is to enable the AI model to process web content and provide valuable insights to users.
 
-The Fetch plugin provides two key features:
+Fetch offers two main features:
 
-1. **Fetching Web Content**: The plugin allows users to fetch the content of a specified web page using the `fetchContent` method. Users can provide a target URL and optionally specify the section of the page (`head` or `body`) to retrieve. The response includes the HTML content of the requested section, paginated to ensure manageability. The response also includes the current page number, total number of pages, and an array of URLs for each page, allowing users to navigate through the paginated content.
+1. **Fetching Web Content**: Fetch provides an endpoint to retrieve the content of a specified web page. Users can supply a target URL and the API returns the HTML content paginated for manageability. Additionally, the response includes the current chunk number, total number of chunks, and a URL to access the next chunk, allowing users to navigate through the paginated content.
 
-2. **Executing Custom JavaScript Functions**: The plugin enables users to extract specific data from a website by running a custom JavaScript function on the fetched content using the `executeFunction` method. Users can provide a target URL, the body of the custom JavaScript function (including a "return" statement), and optionally specify a page number for pagination. The response includes the result of executing the custom function, paginated if necessary.
+2. **Sanitizing and Converting Web Content to Markdown**: The API sanitizes the fetched content by removing unnecessary elements and attributes. It then converts the sanitized HTML content into markdown format, making it more accessible and easier to process for ChatGPT.
 
-The Fetch plugin is designed to be user-friendly, secure, and efficient, making it an ideal solution for those who want to obtain information from various websites quickly and effortlessly. Whether you're a developer, a researcher, or just someone looking for specific information online, Fetch is the perfect tool to simplify and streamline your web content extraction process.
-
-## Files
+## Code Structure
 
 ### index.js
 
-`index.js` is the main server file for the Fetch plugin. It sets up an Express server with rate limiting and CORS middleware, and defines two GET endpoints: `/fetchContent` and `/executeFunction`. The `/fetchContent` endpoint fetches the content of a specified web page, paginates the content, and returns it to the user. It also allows users to specify the section of the page (`head` or `body`) to retrieve. The `/executeFunction` endpoint executes a custom JavaScript function provided by the user on the content of a specified web page and returns the result. The server listens on a specified port and handles error scenarios, such as rate limit violations and function execution timeouts.
+`index.js` is the main server file for the Fetch API. It sets up an Express server with rate limiting and CORS middleware and defines a GET endpoint: `/fetchContent`. The `/fetchContent` endpoint fetches the content of a specified web page, sanitizes the content, converts it to markdown, paginates it, and returns it to the user. The server listens on a specified port and handles error scenarios, such as rate limit violations and content fetching errors.
+
+### Dependencies
+
+- `express`: Web framework for creating the REST API server.
+- `cors`: Middleware for enabling CORS.
+- `axios`: HTTP client for fetching web content.
+- `jsdom`: JavaScript-based DOM implementation for parsing and manipulating fetched content.
+- `turndown`: Library for converting HTML content to markdown.
 
 ### /public/.well-known/ai-plugin.json
 
-`ai-plugin.json` is the manifest file for the Fetch plugin, which provides metadata and configuration details about the plugin. It includes information such as the human-readable name, the model-readable name, descriptions for both humans and the language model, authentication type, API details (including the OpenAPI specification URL), logo URL, contact email, and legal information URL. The `description_for_model` field provides guidance to ChatGPT on how to use the plugin, including instructions for fetching web content, executing custom JavaScript functions, handling pagination, and summarizing page content.
+`ai-plugin.json` is the manifest file for the Fetch plugin, which provides metadata and configuration details about the plugin. It includes information such as the human-readable name, the model-readable name, descriptions for both humans and the language model, authentication type, API details (including the OpenAPI specification URL), logo URL, contact email, and legal information URL. The `description_for_model` field provides guidance to ChatGPT on how to use the plugin, including instructions for fetching web content, handling pagination, and summarizing page content.
 
 ### /public/.well-known/openapi.yaml
 
-`openapi.yaml` is the OpenAPI specification file for the Fetch plugin. It defines the available API endpoints, their parameters, and the expected responses. The specification includes two endpoints: `/fetchContent` and `/executeFunction`. The `/fetchContent` endpoint allows users to fetch the content of a website by providing a target URL, an optional section ('head' or 'body'), and an optional page number for pagination. The `/executeFunction` endpoint allows users to execute a custom JavaScript function on website content by providing a target URL, the body of the custom JavaScript function (including a "return" statement), and an optional page number for pagination. The specification also includes descriptions, parameter schemas, and response schemas for each endpoint, as well as error codes and their meanings.
+`openapi.yaml` is the OpenAPI specification file for the Fetch plugin. It defines the available API endpoints, their parameters, and the expected responses. The specification includes the `/fetchContent` endpoint, which allows users to fetch the content of a website by providing a target URL and an optional chunk number for pagination. The specification also includes descriptions, parameter schemas, and response schemas for the endpoint, as well as error codes and their meanings.
 
-### /public/index.html
+## API Usage
 
-`index.html` is the public-facing HTML file that serves as the landing page for the Fetch plugin. It provides an overview of the plugin's features and functionality, including the ability to fetch web content and execute custom JavaScript functions for data extraction. The page includes a logo, a brief description of the plugin's key features, and a link to learn more about the development process. The page is styled with CSS to provide a clean and user-friendly interface.
+### Fetching Web Content
+
+To fetch web content, make a GET request to the `/fetchContent` endpoint with the following query parameters:
+
+- `url` (required): The target URL to fetch content from.
+- `chunk` (optional): The chunk number to retrieve. If not specified, defaults to 1.
+
+Example request: `GET /fetchContent?url=https://example.com&chunk=1`
+
+
+The response will include:
+
+- The paginated markdown content.
+- A message with information about the total number of chunks and the URL to access the next chunk, if applicable.
+
+## Setup and Deployment
+
+1. Clone the repository.
+2. Run `npm install` to install the dependencies.
+3. Set the `PORT` environment variable to the desired port number, or let the application use the default port (3000).
+4. Run `npm start` to start the server.
+5. Deploy the server to a platform of your choice (e.g., Heroku, AWS, Google Cloud Platform).
+
+## Limitations and Considerations
+
+- Rate Limiting: The Fetch API enforces rate limiting to prevent abuse. Users may encounter a "429: Too many requests" error if they exceed the allowed rate.
+- Content Fetching Errors: Occasionally, errors may occur while fetching web content, which may result in a "500: Error fetching website content" response.
+- Content Accuracy: Although the Fetch plugin sanitizes and converts web content to markdown format, it may not always accurately represent the original source's formatting, structure, or content.
+- Content Length: If the fetched content is too long, it will be chunked into smaller sections. Users must follow the provided URLs to access subsequent chunks.
+- User Permissions and Legal Considerations: The Fetch plugin is designed to access publicly available web content. Users should respect website terms of use, intellectual property rights, and data privacy laws.
