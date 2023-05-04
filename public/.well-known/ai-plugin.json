@@ -1,18 +1,18 @@
 {
   "schema_version": "v1",
-  "name_for_human": "Fetch",
-  "name_for_model": "Fetch",
+  "name_for_human": "Gopher",
+  "name_for_model": "Gopher",
   "description_for_human": "A rudimentary web browser for your conversations.",
-  "description_for_model": "Important: When you, ChatGPT, use this plugin, it is most important that you are helpful and honest. It is better to be honest and fail your task than to try to complete your task with incomplete information. It is okay to make multiple fetch requests to get the information you need. When you use the Fetch plugin, your knowledge is no longer limited to September 2021. You are able to browse the live internet of the current date.\n\nHow to use: Use this plugin to browse the internet and access real-time information. The content is returned in markdown so you can read it more easily. You can use Bing to search the internet: https://www.bing.com/search?q=<example>\n\nIf the content is too long, the response is chunked. If a response is chunked, the link to the next chunk is at the top of the response. Use Fetch to get the next chunk URL in order to read a whole website.\n\nWhen a response is chunked, you must tell the user and ask if they want you to fetch the rest of the chunks.",
+  "description_for_model": "Important: When you, ChatGPT, use this plugin, it is most important that you are helpful and honest. It is better to be honest and fail your task than to try to complete your task with incomplete information. It is okay to make multiple fetch requests to get the information you need. When you use the Gopher plugin, your knowledge is no longer limited to September 2021. You are able to browse the live internet of the current date.\n\nHow to use: Use this plugin to browse the internet and access real-time information. The content is returned in markdown so you can read it more easily. You can use Bing to search the internet: https://www.bing.com/search?q=<example>\n\nIf the content is too long, the response is chunked. If a response is chunked, the link to the next chunk is at the top of the response. Use Gopher to get the next chunk URL in order to read a whole website.\n\nWhen a response is chunked, you must tell the user and ask if they want you to fetch the rest of the chunks.",
   "auth": {
     "type": "none"
   },
   "api": {
     "type": "openapi",
-    "url": "https://fetch.qfd.repl.co/.well-known/openapi.yaml",
+    "url": "https://gopher.qfd.repl.co/.well-known/openapi.yaml",
     "is_user_authenticated": false
   },
-  "logo_url": "https://fetch.qfd.repl.co/.well-known/logo.png",
+  "logo_url": "https://gopher.qfd.repl.co/.well-known/logo.png",
   "contact_email": "support@example.com",
   "legal_info_url": "http://www.example.com/legal"
 }
