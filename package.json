@@ -1,12 +1,12 @@
 {
-  "name": "gopher-plugin",
+  "name": "gopher",
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "mocha"
   },
   "keywords": [
-    "fetch",
+    "gopher",
     "plugin",
     "chatgpt"
   ],
@@ -22,5 +22,10 @@
     "pdf-parse": "^1.1.1",
     "turndown": "^7.1.2"
   },
-  "description": "Fetch plugin for ChatGPT to fetch real-time web content in markdown format"
+  "description": "Gopher plugin for ChatGPT to fetch real-time web content in markdown format",
+  "devDependencies": {
+    "chai": "^4.3.7",
+    "chai-http": "^4.3.0",
+    "mocha": "^10.2.0"
+  }
 }
