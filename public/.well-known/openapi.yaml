@@ -1,10 +1,10 @@
 openapi: 3.0.1
 info:
-  title: Fetch
+  title: Gopher
   description: A plugin to fetch web content in Markdown format for ChatGPT.
   version: 'v1'
 servers:
-  - url: https://fetch.qfd.repl.co
+  - url: https://gopher.qfd.repl.co
 paths:
   /fetchContent:
     get:
