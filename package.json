@@ -7,7 +7,7 @@
   },
   "keywords": ["fetch", "plugin", "chatgpt"],
   "author": "Your Name <your.email@example.com>",
-  "license": "ISC",
+  "license": "AI-0-1.1",
   "dependencies": {
     "@types/node": "^18.0.6",
     "axios": "^1.4.0",
