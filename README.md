@@ -57,6 +57,10 @@ The response will include:
 4. Run `npm start` to start the server.
 5. Deploy the server to a platform of your choice (e.g., Heroku, AWS, Google Cloud Platform).
 
+## Server
+
+The server is currently a free repl operated using the code here: https://replit.com/@qfd/fetch
+
 ## Limitations and Considerations
 
 - Rate Limiting: The Fetch API enforces rate limiting to prevent abuse. Users may encounter a "429: Too many requests" error if they exceed the allowed rate.
