@@ -9,10 +9,10 @@
   },
   "api": {
     "type": "openapi",
-    "url": "https://gopher.qfd.repl.co/.well-known/openapi.yaml",
+    "url": "gopher.azurewebsites.net/.well-known/openapi.yaml",
     "is_user_authenticated": false
   },
-  "logo_url": "https://gopher.qfd.repl.co/.well-known/logo.png",
-  "contact_email": "support@example.com",
-  "legal_info_url": "http://www.example.com/legal"
+  "logo_url": "gopher.azurewebsites.net/.well-known/logo.png",
+  "contact_email": "hi@gopher-it.io",
+  "legal_info_url": "https://github.com/MattyQ/gopher/blob/main/LICENSE.md"
 }
