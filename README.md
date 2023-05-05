@@ -77,4 +77,4 @@ After updating the dependency versions, run `npm install` to install the new ver
 
 ## License
 
-Gopher is licensed under the [AI-0-1.2 license](LICENSE.md].
+Gopher is licensed under the [AI-0-1.2 license](LICENSE.md).
