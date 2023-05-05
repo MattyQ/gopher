@@ -21,7 +21,7 @@ const edgeHeaders = {
   'Accept-Language': 'en-US,en;q=0.9',
   'Accept-Encoding': 'gzip, deflate, br',
   'Connection': 'keep-alive',
-  'Referer': 'https://chat.openai.com/'
+  'Referer': 'https://www.gopher-it.io/'
 };
 
 
